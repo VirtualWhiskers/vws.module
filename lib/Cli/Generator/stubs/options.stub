@@ -1,0 +1,57 @@
+<?php
+
+/** @global CMain $APPLICATION */
+/** @global CUser $USER */
+/** @global string $mid */
+
+use Bitrix\Main\Config\Option;
+use Bitrix\Main\Context;
+use Bitrix\Main\Localization\Loc;
+
+if (!$USER->IsAdmin())
+{
+	return;
+}
+
+Loc::loadMessages(__FILE__);
+
+$moduleId = '{{MODULE_ID}}';
+
+$request = Context::getCurrent()->getRequest();
+
+if ($request->isPost() && check_bitrix_sessid())
+{
+	Option::set($moduleId, 'SAMPLE', (string)($request->getPost('sample') ?? ''), $mid);
+
+	LocalRedirect($APPLICATION->GetCurPage() . '?mid=' . urlencode($mid) . '&lang=' . LANGUAGE_ID);
+}
+
+$sampleValue = Option::get($moduleId, 'SAMPLE', '', $mid);
+
+$tabControl = new CAdminTabControl('{{CLASS_VENDOR_NAME}}Options', [
+	[
+		'DIV' => 'edit1',
+		'TAB' => Loc::getMessage('{{UPPER_ID}}_OPTIONS_TAB'),
+		'TITLE' => Loc::getMessage('{{UPPER_ID}}_OPTIONS_TAB_TITLE'),
+	],
+]);
+?>
+
+<form method="post" action="<?= $APPLICATION->GetCurPage() ?>?mid=<?= urlencode($mid) ?>&lang=<?= LANGUAGE_ID ?>">
+	<?= bitrix_sessid_post() ?>
+	<?php
+	$tabControl->Begin();
+	$tabControl->BeginNextTab();
+	?>
+	<tr>
+		<td width="40%">SAMPLE:</td>
+		<td><input type="text" name="sample" size="50" value="<?= htmlspecialcharsbx($sampleValue) ?>"></td>
+	</tr>
+	<?php
+	$tabControl->Buttons();
+	?>
+	<input type="submit" name="save" value="<?= GetMessage('MAIN_SAVE') ?>">
+	<?php
+	$tabControl->End();
+	?>
+</form>

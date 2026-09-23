@@ -1,0 +1,4 @@
+<?php
+
+$MESS["{{UPPER_ID}}_NAME"] = "{{MODULE_NAME}}";
+$MESS["{{UPPER_ID}}_DESCRIPTION"] = "{{DESCRIPTION}}";

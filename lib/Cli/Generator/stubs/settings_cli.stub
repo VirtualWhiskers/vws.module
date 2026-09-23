@@ -1,0 +1,12 @@
+<?php
+
+return [
+	'console' => [
+		'value' => [
+			'commands' => [
+				\{{NS_VENDOR_NAME}}\Cli\DemoCommand::class,
+			],
+		],
+		'readonly' => true,
+	],
+];

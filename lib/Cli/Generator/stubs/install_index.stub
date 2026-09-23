@@ -1,0 +1,74 @@
+<?php
+
+declare(strict_types=1);
+
+use Bitrix\Main\Localization\Loc;
+use Bitrix\Main\ModuleManager;
+
+class {{CLASS_VENDOR_NAME}} extends \CModule
+{
+	public function __construct()
+	{
+		$this->MODULE_ID = '{{MODULE_ID}}';
+		$this->MODULE_NAME = Loc::getMessage('{{UPPER_ID}}_NAME');
+		$this->MODULE_DESCRIPTION = Loc::getMessage('{{UPPER_ID}}_DESCRIPTION');
+
+		require __DIR__ . '/version.php';
+
+		if (isset($arModuleVersion['VERSION']))
+		{
+			$this->MODULE_VERSION = $arModuleVersion['VERSION'];
+		}
+
+		if (isset($arModuleVersion['VERSION_DATE']))
+		{
+			$this->MODULE_VERSION_DATE = $arModuleVersion['VERSION_DATE'];
+		}
+	}
+
+	public function DoInstall(): void
+	{
+		global $USER;
+
+		/**
+		 * @var CUser $USER
+		 */
+
+		if (!$USER->IsAdmin())
+		{
+			return;
+		}
+
+		ModuleManager::registerModule($this->MODULE_ID);
+
+		$this->InstallDB();
+	}
+
+	public function DoUninstall(): void
+	{
+		global $USER;
+
+		/**
+		 * @var CUser $USER
+		 */
+
+		if (!$USER->IsAdmin())
+		{
+			return;
+		}
+
+		$this->UnInstallDB();
+
+		ModuleManager::unRegisterModule($this->MODULE_ID);
+	}
+
+	public function InstallDB(): void
+	{
+		// установка таблиц через новую миграционную структуру (install/migrations)
+	}
+
+	public function UnInstallDB($arParams = []): void
+	{
+		// удаление таблиц через новую миграционную структуру (install/migrations)
+	}
+}

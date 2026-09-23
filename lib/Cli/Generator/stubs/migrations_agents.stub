@@ -1,0 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+// Пример агента. Раскомментируйте и укажите существующий класс агента.
+// $agent = \Bitrix\Main\UpdateSystem\Migration::getInstance()->agent();
+//
+// $agent->add('\{{NS_VENDOR_NAME}}\Agent::run();', 60);

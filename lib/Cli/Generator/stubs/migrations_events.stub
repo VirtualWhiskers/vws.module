@@ -1,0 +1,13 @@
+<?php
+
+declare(strict_types=1);
+
+// Пример подписки на событие. Раскомментируйте и укажите нужное событие и существующий обработчик.
+// $event = \Bitrix\Main\UpdateSystem\Migration::getInstance()->event();
+//
+// $event->register(
+// 	'main',
+// 	'OnPageStart',
+// 	\{{NS_VENDOR_NAME}}\EventHandler::class,
+// 	'handle',
+// );

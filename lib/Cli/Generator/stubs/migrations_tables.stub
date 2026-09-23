@@ -1,0 +1,13 @@
+<?php
+
+declare(strict_types=1);
+
+$migration = \Bitrix\Main\UpdateSystem\Migration::getInstance();
+
+$migration->table('{{DEFAULT_TABLE_NAME}}')->create(function (\Bitrix\Main\UpdateSystem\Migration\CreateTableBuilder $table) {
+	$table->addId();
+	$table->addColumn()->varchar('TITLE', 255)->notNull();
+	$table->addColumn()->varchar('CODE', 50);
+	$table->addColumn()->datetime('CREATED_AT')->notNull()->defaultCurrentTimestamp();
+	$table->addUniqueIndex('UX_{{UPPER_TABLE}}_CODE', ['CODE']);
+});
