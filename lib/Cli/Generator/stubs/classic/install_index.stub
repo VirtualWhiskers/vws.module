@@ -67,10 +67,11 @@ class {{CLASS_VENDOR_NAME}} extends \CModule
 		if ($this->UnInstallDB())
 		{
 			$this->UnInstallEvents();
-			$this->UnInstallFiles();
+
+			ModuleManager::unRegisterModule($this->MODULE_ID);
 		}
 
-		ModuleManager::unRegisterModule($this->MODULE_ID);
+		$this->UnInstallFiles();
 	}
 
 	public function InstallDB(): bool

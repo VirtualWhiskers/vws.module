@@ -68,7 +68,7 @@ local/modules/<vendor.name>/
 ### Инсталлятор `install/index.php`
 
 - `DoInstall(): void` — admin-check → `InstallDB()` (при false — выход без регистрации) → `ModuleManager::registerModule` → `InstallFiles()` → `InstallEvents()`.
-- `DoUninstall(): void` — admin-check → `UnInstallDB()` → `UnInstallEvents()` → `UnInstallFiles()` → `ModuleManager::unRegisterModule`.
+- `DoUninstall(): void` — admin-check → `UnInstallDB()` → `UnInstallEvents()` → `ModuleManager::unRegisterModule` → `UnInstallFiles()` (файлы — после дерегистрации; при ошибке SQL — выход без дерегистрации и без удаления файлов).
 - `InstallDB(): bool` — `global $DB, $APPLICATION, $errors;`; при `--tables`:
   `if ($DB->RunSQLBatch($_SERVER['DOCUMENT_ROOT'] . '/local/modules/' . $this->MODULE_ID . '/install/db/' . $DB->type . '/install.sql') === false) { $APPLICATION->ThrowException(implode('', $errors)); return false; }`
   при `--agents` — закомментированный пример `CAgent::AddAgent('\Vws\News\Agent::run();', 60);`; `return true;`
