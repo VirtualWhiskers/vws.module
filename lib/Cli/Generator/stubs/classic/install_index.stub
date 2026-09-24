@@ -1,0 +1,115 @@
+<?php
+
+declare(strict_types=1);
+
+use Bitrix\Main\EventManager;
+use Bitrix\Main\Localization\Loc;
+use Bitrix\Main\ModuleManager;
+
+class {{CLASS_VENDOR_NAME}} extends \CModule
+{
+	public function __construct()
+	{
+		$this->MODULE_ID = '{{MODULE_ID}}';
+		$this->MODULE_NAME = Loc::getMessage('{{UPPER_ID}}_NAME');
+		$this->MODULE_DESCRIPTION = Loc::getMessage('{{UPPER_ID}}_DESCRIPTION');
+
+		require __DIR__ . '/version.php';
+
+		if (isset($arModuleVersion['VERSION']))
+		{
+			$this->MODULE_VERSION = $arModuleVersion['VERSION'];
+		}
+
+		if (isset($arModuleVersion['VERSION_DATE']))
+		{
+			$this->MODULE_VERSION_DATE = $arModuleVersion['VERSION_DATE'];
+		}
+	}
+
+	public function DoInstall(): void
+	{
+		global $USER;
+
+		/**
+		 * @var CUser $USER
+		 */
+
+		if (!$USER->IsAdmin())
+		{
+			return;
+		}
+
+		ModuleManager::registerModule($this->MODULE_ID);
+
+		if ($this->InstallDB())
+		{
+			$this->InstallFiles();
+			$this->InstallEvents();
+		}
+	}
+
+	public function DoUninstall(): void
+	{
+		global $USER;
+
+		/**
+		 * @var CUser $USER
+		 */
+
+		if (!$USER->IsAdmin())
+		{
+			return;
+		}
+
+		if ($this->UnInstallDB())
+		{
+			$this->UnInstallEvents();
+			$this->UnInstallFiles();
+		}
+
+		ModuleManager::unRegisterModule($this->MODULE_ID);
+	}
+
+	public function InstallDB(): bool
+	{
+		global $APPLICATION;
+		global $DB;
+		global $errors;
+
+		//{{INSTALL_DB_BODY}}
+
+		return true;
+	}
+
+	public function UnInstallDB($arParams = []): bool
+	{
+		global $APPLICATION;
+		global $DB;
+		global $errors;
+
+		//{{UNINSTALL_DB_BODY}}
+
+		return true;
+	}
+
+	public function InstallEvents(): void
+	{
+		//{{INSTALL_EVENTS_BODY}}
+	}
+
+	public function UnInstallEvents(): void
+	{
+		//{{UNINSTALL_EVENTS_BODY}}
+	}
+
+	public function InstallFiles(): void
+	{
+		//{{INSTALL_FILES_BODY}}
+	}
+
+	public function UnInstallFiles(): void
+	{
+		//{{UNINSTALL_FILES_BODY}}
+	}
+}

@@ -8,7 +8,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Output\OutputInterface;
 use Vws\Module\Cli\Dto\ModuleConfig;
 
-final class ModuleGenerator
+class ModuleGenerator
 {
 	public function __construct(
 		protected readonly ModuleConfig $config,
