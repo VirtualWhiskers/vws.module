@@ -19,6 +19,8 @@ final class MakeModuleCommand extends Command
 
 	protected function configure(): void
 	{
+		Loc::loadMessages(__FILE__);
+
 		$this
 			->setName('vws:make-module')
 			->setDescription($this->msg('VWS_MODULE_CMD_DESCRIPTION'))

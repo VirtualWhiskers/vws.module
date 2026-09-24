@@ -18,6 +18,8 @@ final class MakeModuleClassicCommand extends Command
 
 	protected function configure(): void
 	{
+		Loc::loadMessages(__FILE__);
+
 		$this
 			->setName('vws:make-module-classic')
 			->setDescription($this->msg('VWS_MODULE_CLASSIC_CMD_DESCRIPTION'))
