@@ -210,7 +210,7 @@ final class ModuleGenerator
 		return $content;
 	}
 
-	protected function migrationConfigContent(): string
+	private function migrationConfigContent(): string
 	{
 		$config = [];
 		if ($this->config->tables)
