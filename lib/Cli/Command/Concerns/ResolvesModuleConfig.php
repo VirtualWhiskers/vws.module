@@ -144,8 +144,6 @@ trait ResolvesModuleConfig
 
 	private function msg(string $langKey): string
 	{
-		Loc::loadMessages(__FILE__);
-
 		return (string)Loc::getMessage($langKey);
 	}
 }
