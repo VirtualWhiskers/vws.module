@@ -78,7 +78,6 @@ class {{CLASS_VENDOR_NAME}} extends \CModule
 	{
 		global $APPLICATION;
 		global $DB;
-		global $errors;
 
 		//{{INSTALL_DB_BODY}}
 
@@ -89,7 +88,6 @@ class {{CLASS_VENDOR_NAME}} extends \CModule
 	{
 		global $APPLICATION;
 		global $DB;
-		global $errors;
 
 		//{{UNINSTALL_DB_BODY}}
 

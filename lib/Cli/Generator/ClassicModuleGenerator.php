@@ -101,7 +101,7 @@ final class ClassicModuleGenerator extends ModuleGenerator
 
 		if ($this->config->tables)
 		{
-			$parts[] = "\t\tif (\$DB->RunSQLBatch(\$_SERVER['DOCUMENT_ROOT'] . '/local/modules/' . \$this->MODULE_ID . '/install/db/' . \$DB->type . '/install.sql') === false)\n\t\t{\n\t\t\t\$APPLICATION->ThrowException(implode('', \$errors));\n\n\t\t\treturn false;\n\t\t}";
+			$parts[] = "\t\t\$sqlErrors = \$DB->RunSQLBatch(\$_SERVER['DOCUMENT_ROOT'] . '/local/modules/' . \$this->MODULE_ID . '/install/db/' . \$DB->type . '/install.sql');\n\n\t\tif (\$sqlErrors !== false)\n\t\t{\n\t\t\t\$APPLICATION->ThrowException(implode('', (array)\$sqlErrors));\n\n\t\t\treturn false;\n\t\t}";
 		}
 
 		if ($this->config->agents)
@@ -118,7 +118,7 @@ final class ClassicModuleGenerator extends ModuleGenerator
 
 		if ($this->config->tables)
 		{
-			$parts[] = "\t\tif (\$DB->RunSQLBatch(\$_SERVER['DOCUMENT_ROOT'] . '/local/modules/' . \$this->MODULE_ID . '/install/db/' . \$DB->type . '/uninstall.sql') === false)\n\t\t{\n\t\t\t\$APPLICATION->ThrowException(implode('', \$errors));\n\n\t\t\treturn false;\n\t\t}";
+			$parts[] = "\t\t\$sqlErrors = \$DB->RunSQLBatch(\$_SERVER['DOCUMENT_ROOT'] . '/local/modules/' . \$this->MODULE_ID . '/install/db/' . \$DB->type . '/uninstall.sql');\n\n\t\tif (\$sqlErrors !== false)\n\t\t{\n\t\t\t\$APPLICATION->ThrowException(implode('', (array)\$sqlErrors));\n\n\t\t\treturn false;\n\t\t}";
 		}
 
 		if ($this->config->agents)
