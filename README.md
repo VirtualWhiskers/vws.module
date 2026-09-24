@@ -20,6 +20,12 @@ CLI-команды для работы с модулями Bitrix. Команд�
 php bitrix/bitrix.php vws:make-module <vendor.name> [опции]
 ```
 
+Модули новой структуры (Migration API) — `vws:make-module`, классической (RunSQLBatch, CopyDirFiles) — `vws:make-module-classic`:
+
+```bash
+php bitrix/bitrix.php vws:make-module-classic <vendor.name> [опции]
+```
+
 Модуль генерируется в `local/modules/<vendor.name>/` (существующий — не перезаписывается).
 
 ### Опции
@@ -29,15 +35,17 @@ php bitrix/bitrix.php vws:make-module <vendor.name> [опции]
 | `--name=` | Название модуля (MODULE_NAME) |
 | `--description=` | Описание модуля |
 | `--module-version=` | Версия (по умолчанию `1.0.0`) |
-| `--tables` | Таблицы БД: `install/migrations/tables.php` + `installMigrations()` в инсталляторе |
-| `--events` | Пример подписки на события: `install/migrations/events.php` |
-| `--agents` | Пример агента: `install/migrations/agents.php` |
+| `--tables` | Новая: `install/migrations/tables.php` + `installMigrations()` в инсталляторе; Классика: `install/db/{mysql,pgsql}/{install,uninstall}.sql` |
+| `--events` | Новая: `install/migrations/events.php`; Классика: закомментированные примеры подписок в инсталляторе |
+| `--agents` | Новая: `install/migrations/agents.php`; Классика: закомментированные примеры агентов в инсталляторе |
 | `--install-dirs=components,js` | Install-папки (+ `installDirectoriesMapping` в `migration_config.json`) |
 | `--public` | Публичка: `install/public/` + `publicDirectoriesMapping` |
 | `--cli` | Демо-команда в новом модуле: `.settings.php` + `lib/Cli/DemoCommand.php` |
 | `--options` | Страница настроек: `options.php` + `default_option.php` с демо-опцией |
 | `--config=<путь>` | Параметры из JSON-файла |
 | `-n`, `--no-interaction` | Без вопросов (опции/конфиг/дефолты) |
+
+Классическая команда (`vws:make-module-classic`) не создаёт `migration_config.json`.
 
 Приоритет источников: опции CLI → `--config` → интерактивные вопросы → дефолты.
 
