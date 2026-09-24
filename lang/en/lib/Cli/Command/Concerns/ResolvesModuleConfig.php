@@ -1,6 +1,6 @@
 <?php
 
-$MESS["VWS_MODULE_INVALID_ID"] = "Invalid module id \"{{ID}}\". Expected vendor.name, e.g. vws.news";
+$MESS["VWS_MODULE_INVALID_ID"] = "Invalid module id \"{{ID}}\". Expected vendor.name or vendor.name.subname, e.g. vws.news";
 $MESS["VWS_MODULE_TARGET_EXISTS"] = "Module {{ID}} already exists: {{PATH}}";
 $MESS["VWS_MODULE_Q_NAME"] = "Module title";
 $MESS["VWS_MODULE_Q_DESCRIPTION"] = "Module description";

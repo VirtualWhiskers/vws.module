@@ -14,7 +14,7 @@ use Vws\Module\Cli\Dto\ModuleConfig;
 
 trait ResolvesModuleConfig
 {
-	private const ID_PATTERN = '/^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_]*$/';
+	private const ID_PATTERN = '/^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$/';
 
 	private function resolveConfig(InputInterface $input, OutputInterface $output, string $moduleId): ModuleConfig
 	{

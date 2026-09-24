@@ -187,8 +187,9 @@ class ModuleGenerator
 		$entry = $withSample
 			? "\t'SAMPLE' => '',"
 			: "\t// 'option name' => 'value',";
+		$variableName = str_replace('.', '_', $this->config->moduleId);
 
-		return "<?php\n\n\${$this->config->vendor}_{$this->config->name}_default_option = [\n{$entry}\n];\n";
+		return "<?php\n\n\${$variableName}_default_option = [\n{$entry}\n];\n";
 	}
 
 	protected function optionsLangContent(): string

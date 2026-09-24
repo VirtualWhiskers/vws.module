@@ -1,6 +1,6 @@
 <?php
 
-$MESS["VWS_MODULE_INVALID_ID"] = "Неверный id модуля \"{{ID}}\". Ожидается vendor.name, например vws.news";
+$MESS["VWS_MODULE_INVALID_ID"] = "Неверный id модуля \"{{ID}}\". Ожидается vendor.name или vendor.name.subname, например vws.news";
 $MESS["VWS_MODULE_TARGET_EXISTS"] = "Модуль {{ID}} уже существует: {{PATH}}";
 $MESS["VWS_MODULE_Q_NAME"] = "Название модуля";
 $MESS["VWS_MODULE_Q_DESCRIPTION"] = "Описание модуля";
