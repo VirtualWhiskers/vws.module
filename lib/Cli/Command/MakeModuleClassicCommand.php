@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Vws\Module\Cli\Command;
 
+use Bitrix\Main\Localization\Loc;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,6 +18,8 @@ final class MakeModuleClassicCommand extends Command
 
 	protected function configure(): void
 	{
+		Loc::loadMessages(__FILE__);
+
 		$this
 			->setName('vws:make-module-classic')
 			->setDescription($this->msg('VWS_MODULE_CLASSIC_CMD_DESCRIPTION'))
