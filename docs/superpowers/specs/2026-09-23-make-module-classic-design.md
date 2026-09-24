@@ -75,7 +75,7 @@ local/modules/<vendor.name>/
 - `UnInstallDB($arParams = []): bool` — при `--tables` аналогично `uninstall.sql`; при `--agents` — закомментированный `CAgent::RemoveModuleAgents($this->MODULE_ID);`; `return true;`
 - `InstallEvents(): void` / `UnInstallEvents(): void` — методы всегда; при `--events` — закомментированные примеры `EventManager::getInstance()->registerEventHandlerCompatible(...)` / `unRegisterEventHandler(...)` (обработчик `\Vws\News\EventHandler::handle`), иначе комментарии-заглушки.
 - `InstallFiles(): void` — для каждого `--install-dirs`: `CopyDirFiles($_SERVER['DOCUMENT_ROOT'].'/local/modules/'.$this->MODULE_ID.'/install/'.$dir, $_SERVER['DOCUMENT_ROOT'].'/bitrix/'.$dir, true, true);`; при `--public`: `CopyDirFiles(...'/install/public', $_SERVER['DOCUMENT_ROOT'], true, true);`
-- `UnInstallFiles(): void` — `DeleteDirFilesEx('/bitrix/'.$dir.'/')` по каждой папке; для публички — закомментированный `DeleteDirFilesEx` (чтобы не снести чужие файлы).
+- `UnInstallFiles(): void` — `DeleteDirFiles(install/<dir> → /bitrix/<dir>)` по каждой папке (удаляет только файлы, установленные модулем); для публички — закомментированный `DeleteDirFiles(install/public → корень)` (чтобы не снести чужие файлы).
 
 ### SQL
 

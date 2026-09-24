@@ -83,7 +83,7 @@ final class ClassicModuleGenerator extends ModuleGenerator
 		$content = $this->markerBody($content, '//{{INSTALL_EVENTS_BODY}}', "\t\t// подписка на события (EventManager::registerEventHandlerCompatible)", $this->installEventsParts());
 		$content = $this->markerBody($content, '//{{UNINSTALL_EVENTS_BODY}}', "\t\t// отписка от событий (EventManager::unRegisterEventHandler)", $this->uninstallEventsParts());
 		$content = $this->markerBody($content, '//{{INSTALL_FILES_BODY}}', "\t\t// копирование install-файлов (CopyDirFiles)", $this->installFilesParts());
-		$content = $this->markerBody($content, '//{{UNINSTALL_FILES_BODY}}', "\t\t// удаление скопированных файлов (DeleteDirFilesEx)", $this->uninstallFilesParts());
+		$content = $this->markerBody($content, '//{{UNINSTALL_FILES_BODY}}', "\t\t// удаление скопированных файлов (DeleteDirFiles)", $this->uninstallFilesParts());
 
 		return $content;
 	}
@@ -176,12 +176,12 @@ final class ClassicModuleGenerator extends ModuleGenerator
 
 		foreach ($this->config->installDirs as $dir)
 		{
-			$parts[] = "\t\tDeleteDirFilesEx('/bitrix/{$dir}/{$this->config->vendor}/');";
+			$parts[] = "\t\tDeleteDirFiles(\n\t\t\t\$_SERVER['DOCUMENT_ROOT'] . '/local/modules/' . \$this->MODULE_ID . '/install/{$dir}',\n\t\t\t\$_SERVER['DOCUMENT_ROOT'] . '/bitrix/{$dir}'\n\t\t);";
 		}
 
 		if ($this->config->public)
 		{
-			$parts[] = "\t\t// DeleteDirFilesEx('/<public path>/'); // удаление публички — вручную, чтобы не снести чужие файлы";
+			$parts[] = "\t\t// DeleteDirFiles(\$_SERVER['DOCUMENT_ROOT'] . '/local/modules/' . \$this->MODULE_ID . '/install/public', \$_SERVER['DOCUMENT_ROOT']); // удаление публички — вручную, чтобы не снести чужие файлы";
 		}
 
 		return $parts;
