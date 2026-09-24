@@ -11,7 +11,7 @@ use Vws\Module\Cli\Dto\ModuleConfig;
 final class ModuleGenerator
 {
 	public function __construct(
-		private readonly ModuleConfig $config,
+		protected readonly ModuleConfig $config,
 	) {}
 
 	public function generate(OutputInterface $output): int
@@ -96,7 +96,7 @@ final class ModuleGenerator
 		return Command::SUCCESS;
 	}
 
-	private function writeFiles(string $root, array $files): array
+	protected function writeFiles(string $root, array $files): array
 	{
 		$created = [];
 		foreach ($files as $relativePath => $content)
@@ -122,7 +122,7 @@ final class ModuleGenerator
 		return $created;
 	}
 
-	private function placeholders(): array
+	protected function placeholders(): array
 	{
 		$upperId = strtoupper(str_replace('.', '_', $this->config->moduleId));
 		$upperTable = strtoupper(str_replace('.', '_', $this->config->moduleId));
@@ -143,7 +143,7 @@ final class ModuleGenerator
 		];
 	}
 
-	private function renderStub(string $stubFile, array $placeholders): string
+	protected function renderStub(string $stubFile, array $placeholders): string
 	{
 		$path = __DIR__ . '/stubs/' . $stubFile;
 		$content = file_get_contents($path);
@@ -155,7 +155,7 @@ final class ModuleGenerator
 		return strtr($content, $placeholders);
 	}
 
-	private function installerContent(): string
+	protected function installerContent(): string
 	{
 		$placeholders = $this->placeholders();
 		$content = $this->renderStub('install_index.stub', $placeholders);
@@ -182,7 +182,7 @@ final class ModuleGenerator
 		return $content;
 	}
 
-	private function defaultOptionContent(bool $withSample): string
+	protected function defaultOptionContent(bool $withSample): string
 	{
 		$entry = $withSample
 			? "\t'SAMPLE' => '',"
@@ -191,7 +191,7 @@ final class ModuleGenerator
 		return "<?php\n\n\${$this->config->vendor}_{$this->config->name}_default_option = [\n{$entry}\n];\n";
 	}
 
-	private function optionsLangContent(): string
+	protected function optionsLangContent(): string
 	{
 		$raw = <<<PHP
 		<?php
@@ -210,7 +210,7 @@ final class ModuleGenerator
 		return $content;
 	}
 
-	private function migrationConfigContent(): string
+	protected function migrationConfigContent(): string
 	{
 		$config = [];
 		if ($this->config->tables)
@@ -240,7 +240,7 @@ final class ModuleGenerator
 		return json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "\n";
 	}
 
-	private static function removeDirRecursive(string $dir): void
+	protected static function removeDirRecursive(string $dir): void
 	{
 		if (!is_dir($dir))
 		{
