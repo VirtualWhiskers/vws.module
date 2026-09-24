@@ -39,9 +39,9 @@ class {{CLASS_VENDOR_NAME}} extends \CModule
 			return;
 		}
 
-		ModuleManager::registerModule($this->MODULE_ID);
-
 		$this->InstallDB();
+
+		ModuleManager::registerModule($this->MODULE_ID);
 	}
 
 	public function DoUninstall(): void

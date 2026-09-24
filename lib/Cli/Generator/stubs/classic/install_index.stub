@@ -40,13 +40,15 @@ class {{CLASS_VENDOR_NAME}} extends \CModule
 			return;
 		}
 
+		if (!$this->InstallDB())
+		{
+			return;
+		}
+
 		ModuleManager::registerModule($this->MODULE_ID);
 
-		if ($this->InstallDB())
-		{
-			$this->InstallFiles();
-			$this->InstallEvents();
-		}
+		$this->InstallFiles();
+		$this->InstallEvents();
 	}
 
 	public function DoUninstall(): void
